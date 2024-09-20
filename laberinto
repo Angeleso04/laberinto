@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Laberinto en p5.js</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.4.0/p5.js"></script>
+</head>
+<body>
+    <script>
+        let maze = [
+            "##########",
+            "#        #",
+            "# ###### #",
+            "# #      #",
+            "# # ######",
+            "#        #",
+            "##########"
+        ];
+
+        let cellSize = 50;
+        let posX = 1;
+        let posY = 1;
+
+        function setup() {
+            createCanvas(maze[0].length * cellSize, maze.length * cellSize);
+        }
+
+        function draw() {
+            background(255);
+            drawMaze();
+            drawObject();
+        }
+
+        function drawMaze() {
+            for (let y = 0; y < maze.length; y++) {
+                for (let x = 0; x < maze[y].length; x++) {
+                    if (maze[y][x] === '#') {
+                        fill(0);
+                    } else {
+                        fill(255);
+                    }
+                    rect(x * cellSize, y * cellSize, cellSize, cellSize);
+                }
+            }
+        }
+
+        function drawObject() {
+            fill(0, 255, 0);
+            rect(posX * cellSize, posY * cellSize, cellSize, cellSize);
+        }
+
+        function keyPressed() {
+            if (keyCode === UP_ARROW && maze[posY - 1][posX] !== '#') {
+                posY--;
+            } else if (keyCode === DOWN_ARROW && maze[posY + 1][posX] !== '#') {
+                posY++;
+            } else if (keyCode === LEFT_ARROW && maze[posY][posX - 1] !== '#') {
+                posX--;
+            } else if (keyCode === RIGHT_ARROW && maze[posY][posX + 1] !== '#') {
+                posX++;
+            }
+        }
+    </script>
+</body>
+</html>
+
